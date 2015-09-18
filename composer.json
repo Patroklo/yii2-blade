@@ -22,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "cyneek\\yii2\\routes\\": ""
+      "cyneek\\yii2\\blade\\": ""
     }
   }
 }
