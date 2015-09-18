@@ -1,0 +1,28 @@
+{
+  "name": "cyneek/yii2-blade",
+  "description": "Wrapper that fits in Blade layout system in Yii2 application.",
+  "keywords": [
+    "yii",
+    "yii2",
+    "layout",
+    "Blade"
+  ],
+  "version": "1.0.0",
+  "type": "yii2-extension",
+  "license": "BSD",
+  "authors": [
+    {
+      "name": "Joseba Juániz",
+      "email": "joseba.juaniz@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "*",
+    "philo/laravel-blade": "3.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "cyneek\\yii2\\routes\\": ""
+    }
+  }
+}
