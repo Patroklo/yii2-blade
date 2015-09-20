@@ -1,10 +1,4 @@
 <?php
-/**
- * Created for Yii2.
- * User: Joseba Juániz joseba.juaniz@gmail.com
- * Date: 16/09/15
- * Time: 12:23
- */
 
 namespace cyneek\yii2\blade;
 
@@ -22,7 +16,7 @@ class ViewRenderer extends BaseViewRenderer
      *
      * @var string
      */
-    public static $extension = 'blade';
+    public $extension = 'blade';
     /**
      * Path where view cache will be located
      * Warning: this path must be writable by PHP.
@@ -71,7 +65,7 @@ class ViewRenderer extends BaseViewRenderer
 
         $this->blade = new Blade($this->viewPaths, Yii::getAlias($this->cachePath));
 
-        $this->blade->view()->addExtension(self::$extension, self::$extension);
+        $this->blade->view()->addExtension($this->extension, $this->extension);
     }
 
 
@@ -86,8 +80,7 @@ class ViewRenderer extends BaseViewRenderer
     public function render($view, $viewFile, $params)
     {
 
-        $viewFile = pathinfo($viewFile, PATHINFO_FILENAME);
-
+        $viewFile = $this->normalizeView($viewFile);
 
         if (is_null($this->base_view))
         {
@@ -109,7 +102,7 @@ class ViewRenderer extends BaseViewRenderer
     /**
      * Returns View blade Object
      *
-     * @return \Philo\Blade\Illuminate\View\Factory|void
+     * @return \Philo\Blade\Illuminate\View\Factory
      */
     public function view()
     {
@@ -124,8 +117,21 @@ class ViewRenderer extends BaseViewRenderer
      */
     public function addLayout($layout)
     {
-        $layout = pathinfo($layout, PATHINFO_FILENAME);
-        $this->base_view = $layout;
+        $this->base_view = $this->normalizeView($layout);
+    }
+
+    /**
+     * @param String $view
+     * @return mixed
+     */
+    protected function normalizeView($view)
+    {
+        $directory = pathinfo($view, PATHINFO_DIRNAME);
+        $viewFile = pathinfo($view, PATHINFO_FILENAME);
+
+        $this->blade->view()->getFinder()->addLocation($directory.'/');
+        
+        return $viewFile;
     }
 
 }
