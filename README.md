@@ -1,10 +1,10 @@
 # Yii2 Blade Layout
 
-Routing and filtering extension system for Yii2 framework that emulates the Laravel routing system.
+Blade layout extension system for Yii2 framework.
 
 ## What's Yii2 Blade Layout?
 
-This module changes the route system definition of Yii2 in order to, instead of having to define the routes in the config file of the application now will be possible to make a series of files that hold the routes that the user will define for his web. This module lets the calling to a series of methods that will define the system routes in a more intuitive way that the basic Yii2 system getting it's inspiration from the routing system defined by Laravel.
+This module adds support to Blade Layout system in your Yii2 app installation.  
 
 Developed by Joseba Juániz ([@Patroklo](http://twitter.com/Patroklo))
 
@@ -13,11 +13,6 @@ Developed by Joseba Juániz ([@Patroklo](http://twitter.com/Patroklo))
 ## Minimum requirements
 
 * Yii2
-
-## Future plans
-
-* Pass manual parameters to the filters.
-* Automatic system to make RESTFul Routes.
 
 ## License
 
@@ -55,7 +50,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Install package via [composer](http://getcomposer.org/download/) `"cyneek/yii2-blade": "*"`
 * Update config file _'config/web.php'_
 
-```
+```php
 
 ...
 'components' => [
@@ -71,13 +66,35 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ]
 ...
 ```
+
+
 * Make a _blade_cache_ directory in your @runtime directory writable by the web user.
 * Profit!
 
 ## Parameters
 
-* *cachePath* [String/Required] Directory where Blade Layout system will store the view files once they are treated.
-* viewPaths [String[]/Optional] Array holding a list of directories where views and layouts will be stored.
-* extension [String/Optional] It you are going to use another extension than `.blade` for your views it should be stated here.
+* **cachePath** [String/Required] Directory where Blade Layout system will store the view files once they are treated. Should be writable by the web server user (for example www-data).
+* **viewPaths** [String[]/Optional] Array holding a list of directories where views and layouts will be stored. This is not really necessary since the system will get the view paths once they are retrieved to the Blade Wrapper.
+* **extension** [String/Optional] It you are going to use another extension than `.blade` for your view files, it should be stated here as well as in the array key of the renderers array.
 
-### Basic use
+### Using the `layout` parameter
+
+It's possible to define the controller's parameter `layout` with a Blade file. But since the Yii2 view render system it's not 100% compatible with the Blade Layout rendering, you'll have to add a behavior to that controller called `BladeBehavior` that will integrate both systems. 
+
+To add this behavior you'll only have to include:
+
+
+```php
+    public function behaviors()
+    {
+        return [
+            ...
+            'blade' => [
+                'class' => BladeBehavior::className()
+            ],
+            ...
+        ];
+    }
+```
+
+Then the layout view file will be rendered before the views if both layout and view files have a blade file extension. If not, Yii2 normal rendering system will be used instead.
