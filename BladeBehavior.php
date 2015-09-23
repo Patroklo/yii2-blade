@@ -19,7 +19,8 @@ class BladeBehavior extends Behavior
     }
 
     /**
-     *
+     * Changes the render file order of the layout and views
+     * if both layout and view are blade files.
      *
      * @param \yii\base\ViewEvent $event
      * @return mixed
