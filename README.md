@@ -98,3 +98,10 @@ To add this behavior you'll only have to include:
 ```
 
 Then the layout view file will be rendered before the views if both layout and view files have a blade file extension. If not, Yii2 normal rendering system will be used instead.
+
+### Using the `$view` instead of `$this` 
+The object `$this` can't be used in Blade templates due to compatibility problems with the Blade system callings.
+
+So, instead of this object I made the `$view` object that has the same functionalities than the `$this` in a normal layout system.
+
+For example , if you want to pass `$this->title` from content view to layout view, just use `$view->title` ,and in the layout view , you can get title by using `$this->title`.
