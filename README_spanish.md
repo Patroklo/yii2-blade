@@ -99,3 +99,11 @@ Para añadir este behavior tan sólo hay que incluir en el controller:
 ```
 
 Entonces el fichero layout será renderizado antes que las vistas que contiene, a diferencia del sistema estandar de Yii2, que las renderiza al final.
+
+### Usando `$view` en lugar de `$this` 
+
+La variable `$this` que se refiere al propio objeto de la vista no puede ser en los templates de Blade a causa de problemas de compatibilidad con el sistema de llamadas de Blade.
+  
+Por ello, en lugar de esta variable, he creado en su lugar `$view` que tiene las mismas funcionalidades que `$this` en un sistema de layout normal.
+
+Por ejemplo, si queremos pasar `$this->title` de una vista a nuestro layout, deberíamos usar en su lugar `$view->title`, y en el layout se podría seguir utilizando `$this->title`.
