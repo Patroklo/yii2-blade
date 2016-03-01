@@ -45,7 +45,7 @@ class ViewRenderer extends BaseViewRenderer
      *
      * @var string
      */
-    protected $base_view;
+    protected $layoutView;
 
 
     /**
@@ -82,18 +82,23 @@ class ViewRenderer extends BaseViewRenderer
 
         $viewFile = $this->normalizeView($viewFile);
 
-        if (is_null($this->base_view))
+        if (is_null($this->layoutView))
         {
-            $this->base_view = $viewFile;
+            $base_view = $viewFile;
             $viewFile = NULL;
         }
+        else
+        {
+            $base_view = $this->layoutView;
+            $this->layoutView = NULL;
+        }
 
-        $viewObject = $this->blade->view()->make($this->base_view, $params)->with('view', $view);
+        $viewObject = $this->blade->view()->make($base_view, $params)->with('view', $view);
 
         if (!is_null($viewFile))
         {
             $params['view'] = $view;
-            $viewObject->nest($viewFile.'_view', $viewFile, $params);
+            $viewObject->nest($viewFile . '_view', $viewFile, $params);
         }
 
         return $viewObject->render();
@@ -117,7 +122,7 @@ class ViewRenderer extends BaseViewRenderer
      */
     public function addLayout($layout)
     {
-        $this->base_view = $this->normalizeView($layout);
+        $this->layoutView = $this->normalizeView($layout);
     }
 
     /**
@@ -129,8 +134,8 @@ class ViewRenderer extends BaseViewRenderer
         $directory = pathinfo($view, PATHINFO_DIRNAME);
         $viewFile = pathinfo($view, PATHINFO_FILENAME);
 
-        $this->blade->view()->getFinder()->addLocation($directory.'/');
-        
+        $this->blade->view()->getFinder()->addLocation($directory . '/');
+
         return $viewFile;
     }
 
