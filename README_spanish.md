@@ -107,3 +107,10 @@ La variable `$this` que se refiere al propio objeto de la vista no puede ser en 
 Por ello, en lugar de esta variable, he creado en su lugar `$view` que tiene las mismas funcionalidades que `$this` en un sistema de layout normal.
 
 Por ejemplo, si queremos pasar `$this->title` de una vista a nuestro layout, deberíamos usar en su lugar `$view->title`, y en el layout se podría seguir utilizando `$this->title`.
+
+
+### Instrucciones de uso para Blade
+
+La documentación del framework Laravel tiene una extensa guía sobre cómo trabajar con el sistema de templates de Blade. Todo debería ser compatible con este módulo ya que utiliza las mismas librerías en su origen.
+
+[Link a la documentación básica de Blade en la web de Laravel](https://laravel.com/docs/master/blade)

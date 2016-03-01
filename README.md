@@ -105,3 +105,9 @@ The object `$this` can't be used in Blade templates due to compatibility problem
 So, instead of this object I made the `$view` object that has the same functionalities than the `$this` in a normal layout system.
 
 For example , if you want to pass `$this->title` from content view to layout view, just use `$view->title` ,and in the layout view , you can get title by using `$this->title`.
+
+### Blade template instructions
+
+The Laravel framework documentation has an extensive guide about how to work with Blade template system. Everything should be compatible with this module since it uses the same libraries in the background.
+
+[Link to the basic Blade documentation in Laravel homepage](https://laravel.com/docs/master/blade)
